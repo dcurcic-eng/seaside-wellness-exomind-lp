@@ -349,5 +349,22 @@
   });
 </script>
 
+<!-- FORM SUCCESS EVENT: fires once per browser using sessionStorage dedup -->
+<script>
+  (function() {
+    var storageKey = 'swpc_form_success_fired';
+    try {
+      if (!sessionStorage.getItem(storageKey)) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ 'event': 'form-success' });
+        sessionStorage.setItem(storageKey, '1');
+      }
+    } catch (e) {
+      // sessionStorage unavailable (e.g. private browsing), fire the event anyway
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ 'event': 'form-success' });
+    }
+  })();
+</script>
 </body>
 </html>
